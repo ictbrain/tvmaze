@@ -89,7 +89,6 @@ public class Startup
         var retry = Policy.HandleResult<HttpResponseMessage>(result => result.StatusCode == HttpStatusCode.TooManyRequests)
                           .Or<RateLimitRejectedException>()
                           .WaitAndRetryForeverAsync((retryNum) => {
-                              Console.WriteLine($"Retrying. Num: {retryNum}"); //TODO
                               return TimeSpan.FromSeconds(1);
                           });
 
